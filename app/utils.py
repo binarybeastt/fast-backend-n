@@ -25,10 +25,41 @@ def generate_interview_prep(job_title: str, job_description: str, resume: str):
         completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "You are a helpful assistant specializing in assisting users with interview preparation"},
             {"role": "user", "content": prompt}
         ]
         )
         return {"questions_answers": completion.choices[0].message.content}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+def cv_resume_review(resume: str, job_description: str):
+    """
+    Reviews a resume and provides suggestions for improvement based on a job description.
+
+    Args:
+        resume (str): The text of the user's resume.
+        job_description (str): The job description for the desired position.
+
+    Returns:
+        dict: A dictionary containing feedback and recommendations for the resume.
+    """
+    prompt = (
+        f"Review the following resume: {resume}. "
+        f"Compare it to this job description: {job_description}. "
+        "Provide detailed feedback on strengths, weaknesses, and areas for improvement. "
+        "Suggest specific changes to align the resume with the job description, and identify any missing skills."
+        "Point to specific parts of the resume that might need improvements to beat ATS and make corrections while referencing those parts"
+    )
+    try:
+        completion = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a professional resume reviewer and career coach."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        return {"resume_feedback": completion.choices[0].message.content}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
