@@ -6,7 +6,7 @@ from app.utils import generate_interview_prep
 from app.models import InterviewPrep
 from app.database import get_db
 from sqlalchemy.orm import Session
-
+from datetime import datetime
 
 # Define a router instance
 router = APIRouter()
@@ -15,15 +15,15 @@ router = APIRouter()
 class InterviewPrepRequest(BaseModel):
     job_title: str
     job_description: str
-    interview_date: Optional[str] = None  # Optional, could use datetime instead
+    interview_date: datetime  # Optional, could use datetime instead
     resume: str  # Assume resume is a string, e.g., a URL or base64 encoded text
 
 class InterviewPrepResponse(BaseModel):
     id: int
     job_title: str
     job_description: str
-    interview_date: Optional[str] = None
-    questions_answers: dict  # Store generated questions and answers
+    interview_date: datetime
+    questions_answers_value: str  # Store generated questions and answers
 
 @router.post("/", response_model=InterviewPrepResponse)
 def create_interview_prep(
@@ -35,7 +35,6 @@ def create_interview_prep(
     questions_answers = generate_interview_prep(request.job_title, request.job_description, request.resume)
     questions_answers_value = questions_answers.get("questions_answers", "")
 
-
     # Create a new interview prep record
     interview_prep = InterviewPrep(
         user_id=current_user.id,  # Assuming `current_user` contains the authenticated user's ID
@@ -43,19 +42,20 @@ def create_interview_prep(
         job_description=request.job_description,
         interview_date=request.interview_date,
         resume=request.resume,
-        questions_answers=questions_answers_value,
+        questions_answers=questions_answers_value,  # Store the string
     )
 
     db.add(interview_prep)
     db.commit()
     db.refresh(interview_prep)  # Retrieve the updated record
 
+    # Return the response with correct field name
     return {
         "id": interview_prep.id,
         "job_title": interview_prep.job_title,
         "job_description": interview_prep.job_description,
         "interview_date": interview_prep.interview_date,
-        "questions_answers": questions_answers_value,
+        "questions_answers_value": questions_answers_value,  # Changed to match response model
     }
 
 @router.get("/{id}", response_model=InterviewPrepResponse)
@@ -72,12 +72,13 @@ def get_interview_prep(
     if not interview_prep:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Interview prep not found")
 
+    # Return the response with correct field name
     return {
         "id": interview_prep.id,
         "job_title": interview_prep.job_title,
         "job_description": interview_prep.job_description,
         "interview_date": interview_prep.interview_date,
-        "questions_answers": interview_prep.questions_answers,
+        "questions_answers_value": interview_prep.questions_answers,  # Changed to match response model
     }
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
