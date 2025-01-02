@@ -33,6 +33,8 @@ def create_interview_prep(
 ):
     # Generate interview questions and answers
     questions_answers = generate_interview_prep(request.job_title, request.job_description, request.resume)
+    questions_answers_value = questions_answers.get("questions_answers", "")
+
 
     # Create a new interview prep record
     interview_prep = InterviewPrep(
@@ -41,7 +43,7 @@ def create_interview_prep(
         job_description=request.job_description,
         interview_date=request.interview_date,
         resume=request.resume,
-        questions_answers=questions_answers,
+        questions_answers=questions_answers_value,
     )
 
     db.add(interview_prep)
@@ -53,7 +55,7 @@ def create_interview_prep(
         "job_title": interview_prep.job_title,
         "job_description": interview_prep.job_description,
         "interview_date": interview_prep.interview_date,
-        "questions_answers": questions_answers,
+        "questions_answers": questions_answers_value,
     }
 
 @router.get("/{id}", response_model=InterviewPrepResponse)
