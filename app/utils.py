@@ -29,6 +29,7 @@ def generate_interview_prep(job_title: str, job_description: str, resume: str):
             {"role": "user", "content": prompt}
         ]
         )
+        print(completion.choices[0].message.content)
         return {"questions_answers": completion.choices[0].message.content}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
