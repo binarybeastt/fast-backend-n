@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from app.models import User
 from sqlalchemy.orm import Session
-from app.routes import database
+from app import database
 
 # You should use the same secret key and algorithm you used for token creation in `auth.py`
 SECRET_KEY = "your_secret_key_here"
