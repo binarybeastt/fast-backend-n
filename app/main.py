@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from app.database import engine
 from app.models import Base
-from app.routes import auth, interview
+from app.routes import auth, interview, resume_review  # Import the routes
 from app.dependencies import get_current_user  # Import the dependency
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -20,6 +20,7 @@ Base.metadata.create_all(bind=engine)
 # Include authentication routes
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(interview.router, prefix="/interview-prep", tags=["interview-prep"])
+app.include_router(resume_review.router, prefix="/resume-review", tags=["resume-review"])
 
 # Example of a protected route
 @app.get("/protected-route/")

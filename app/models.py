@@ -27,3 +27,14 @@ class InterviewPrep(Base):
     questions_answers = Column(Text, nullable=False)  # Store as JSON string
 
     user = relationship("User")  # Assuming `User` is the user model
+
+class ResumeReview(Base):
+    __tablename__ = "resume_reviews"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)  # Foreign key to users table
+    resume = Column(Text, nullable=False)
+    job_description = Column(Text, nullable=False)
+    resume_review = Column(Text, nullable=False)  # Store as JSON string
+
+    user = relationship("User")  # Assuming `User` is the user model
