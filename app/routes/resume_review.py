@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from app.dependencies import get_current_user
 from pydantic import BaseModel
 from typing import Optional
-from app.utils import generate_resume_review
+from app.utils import cv_resume_review
 from app.models import ResumeReview
 from app.database import get_db
 from sqlalchemy.orm import Session
@@ -29,7 +29,7 @@ async def create_resume_review(
     db: Session = Depends(get_db)
 ):
     # Generate resume review
-    resume_review = generate_resume_review(request.resume, request.job_description)
+    resume_review = cv_resume_review(request.resume, request.job_description)
     resume_review_value = resume_review.get("resume_review", "")
 
     # Create a new resume review record
