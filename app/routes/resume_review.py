@@ -30,7 +30,7 @@ async def create_resume_review(
 ):
     # Generate resume review
     resume_review = cv_resume_review(request.resume, request.job_description)
-    resume_review_value = resume_review.get("resume_review", "")
+    resume_review_value = resume_review.get("resume_feedback", "")
 
     # Create a new resume review record
     resume_review = ResumeReview(

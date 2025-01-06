@@ -60,6 +60,7 @@ def cv_resume_review(resume: str, job_description: str):
                 {"role": "user", "content": prompt}
             ]
         )
+        print(completion.choices[0].message.content)
         return {"resume_feedback": completion.choices[0].message.content}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
