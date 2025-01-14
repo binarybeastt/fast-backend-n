@@ -1,2 +1,4 @@
 alembic upgrade head
-uvicorn app.main:app --host 0.0.0.0 --port $PORT
+
+# Start the app with Gunicorn
+gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app
