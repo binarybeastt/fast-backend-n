@@ -19,7 +19,7 @@ Base.metadata.create_all(bind=engine)
 
 # Include authentication routes
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
-app.include_router(interview.router, prefix="/interview-prep", tags=["interview-prep"])
+app.include_router(interview.router, prefix="/interview-prep", tags=["interview-prep"], include_in_schema=True)
 app.include_router(resume_review.router, prefix="/resume-review", tags=["resume-review"])
 
 # Example of a protected route
