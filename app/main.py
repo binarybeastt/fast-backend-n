@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000",
+    allow_origins=["https://localhost:3000",
                    "https://nextjs-frontend-git-deji-binarybeastts-projects.vercel.app"], 
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
