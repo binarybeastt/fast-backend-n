@@ -9,7 +9,8 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://localhost:3000",
-                   "https://nextjs-frontend-git-deji-binarybeastts-projects.vercel.app"], 
+                   "https://nextjs-frontend-git-deji-binarybeastts-projects.vercel.app",
+                   "http://nextjs-frontend-git-deji-binarybeastts-projects.vercel.app"], 
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
