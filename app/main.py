@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.DEBUG)
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000",
+    allow_origins=["https://localhost:3000",
                    "https://nextjs-frontend-git-deji-binarybeastts-projects.vercel.app",
                    "https://nextjs-frontend-pi.vercel.app"], 
     allow_credentials=True,
