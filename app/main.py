@@ -5,10 +5,9 @@ from app.models import Base
 from app.routes import auth, interview, resume_review  # Import the routes
 from app.dependencies import get_current_user  # Import the dependency
 from fastapi.middleware.cors import CORSMiddleware
-from azure.monitor.opentelemetry import configure_azure_monitor
+# from azure.monitor.opentelemetry import configure_azure_monitor
 
 logging.basicConfig(level=logging.DEBUG)
-configure_azure_monitor()
 
 app = FastAPI()
 app.add_middleware(
