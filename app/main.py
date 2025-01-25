@@ -1,3 +1,4 @@
+import logging
 from fastapi import FastAPI, Depends
 from app.database import engine
 from app.models import Base
@@ -6,6 +7,7 @@ from app.dependencies import get_current_user  # Import the dependency
 from fastapi.middleware.cors import CORSMiddleware
 from azure.monitor.opentelemetry import configure_azure_monitor
 
+logging.basicConfig(level=logging.DEBUG)
 configure_azure_monitor()
 
 app = FastAPI()
