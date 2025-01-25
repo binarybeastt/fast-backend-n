@@ -16,7 +16,7 @@ app.add_middleware(
                    "https://nextjs-frontend-git-deji-binarybeastts-projects.vercel.app",
                    "http://nextjs-frontend-git-deji-binarybeastts-projects.vercel.app",
                    "https://nextjs-frontend-pi.vercel.app",
-                   "http://nextjs-frontend-pi.vercel.app/"], 
+                   "http://nextjs-frontend-pi.vercel.app"], 
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
